@@ -23,4 +23,20 @@ router.get('/', function (req,res,){
     })
 } )
 
+router.get('/shoes/get_all', function (req, res) {
+    connection.query("SELECT * FROM SHOES", (err, rows) => {
+        if(err) {
+            res.json({
+                success: false,
+                err
+            })
+        } else {
+            res.json({
+                success: true,
+                rows
+            })
+        }
+    })
+})
+
 module.exports = router;
