@@ -1,0 +1,8 @@
+FROM mysql:8.0
+
+ENV MYSQL_ROOT_PASSWORD tob1
+ENV MYSQL_DATABASE DB_DUTCHIE_V1
+ENV MYSQL_USER user
+ENV MYSQL_PASSWORD 123
+
+ADD setup_csdl.sql /docker-entrypoint-initdb.d

@@ -12,7 +12,9 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
-
+.idea/inspectionProfiles/
+.idea/jsLibraryMappings.xml
+.idea/Dutchie-shop.iml
 # AWS User-specific
 .idea/**/aws.xml
 
