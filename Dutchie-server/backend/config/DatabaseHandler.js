@@ -8,7 +8,7 @@ function DatabaseHandler(){
 
 DatabaseHandler.prototype.createConnection = function (){
     this.connection = mysql.createConnection({
-        host : process.env.DATABASE_HOST || "0.0.0.0" || "172.22.0.2",
+        host : process.env.DATABASE_HOST || "0.0.0.0" || "172.22.0.2", // neu  run docker thi bo 172....
         user: 'root',
         password: 'tob1',
         database: 'DB_DUTCHIE_V1',
