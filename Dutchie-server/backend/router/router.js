@@ -10,6 +10,11 @@ const jsonParser = bodyParser.json()
 
 //TODO: Example
 router.get('/', function (req,res,){
+
+    // Create cookie
+    createCookie(req,res);
+//14121202501180163
+
     connection.query("SELECT * FROM EMPLOYEE", (err, rows) => {
         if(err) {
             res.json({
@@ -91,10 +96,8 @@ router.get('/shoes/:id',function (req,res) {
 // TODO tim kiem theo san pham
 
 
-
 // TODO: create cookie de nhan dien nguoi dung dang truy cap
-// https://www.w3schools.com/js/js_cookies.asp
-// :D
+
 
 const Shoes = function (shoes) {
     this.NAME = shoes.NAME
@@ -136,4 +139,17 @@ router.post('/shoes/test_post', jsonParser,function (req, res)  {
         })
     }
 })
+
+function createCookie(req, res){
+    let cookie = req.cookies.cookieName
+    if(cookie === undefined){
+        var randomNumber = Math.random().toString()
+        randomNumber =randomNumber.substring(2, randomNumber.length)
+        res.cookie('cookieName',randomNumber,{ maxAge: 900000, httpOnly: true })
+        console.log('cookie create successfully')
+    }
+    else {
+        console.log('cookie exists', cookie)
+    }
+}
 module.exports = router;

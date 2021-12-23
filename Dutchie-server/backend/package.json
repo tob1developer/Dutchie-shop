@@ -9,6 +9,7 @@
   "author": "Ngo Tuan Kiet",
   "license": "ISC",
   "devDependencies": {
+    "cookie-parser": "^1.4.6",
     "express": "^4.17.1",
     "mysql": "^2.18.1"
   },
