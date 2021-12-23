@@ -4,6 +4,8 @@ const DatabaseHandler = require('../config/DatabaseHandler')
 const databaseHandler = new DatabaseHandler()
 const connection = databaseHandler.createConnection()
 const router = express.Router()
+const bodyParser = require("body-parser")
+const jsonParser = bodyParser.json()
 
 
 //TODO: Example
@@ -43,6 +45,25 @@ router.get('/shoes/get_all', function (req, res) {
     })
 })
 
+// TODO: Lay index doi giay
+
+router.get('/shoes/:id',function (req,res) {
+    let id = req.params.id
+    connection.query(`SELECT * FROM SHOES WHERE SHOES_ID = ${id}`, (err, rows) => {
+        if(err) {
+            res.json({
+                success: false,
+                err
+            })
+        } else {
+            res.json({
+                success: true,
+                rows
+            })
+        }
+    })
+})
+//https://www.bezkoder.com/node-js-rest-api-express-mysql/
 /**
  * Lay toan bo giay dang hot
  * */
@@ -74,4 +95,45 @@ router.get('/shoes/get_all', function (req, res) {
 // TODO: create cookie de nhan dien nguoi dung dang truy cap
 // https://www.w3schools.com/js/js_cookies.asp
 // :D
+
+const Shoes = function (shoes) {
+    this.NAME = shoes.NAME
+    this.DESCRIPTION = shoes.DESCRIPTION
+    this.CreationDate = shoes.CreationDate
+    this.PRICE = shoes.PRICE
+}
+
+// POST THANH CONG =))
+router.post('/shoes/test_post', jsonParser,function (req, res)  {
+    if(!req.body){
+        console.error(`err no param ${req.body}`);
+        res.json({
+            success: false,
+        })
+    } else {
+        let shoes = new Shoes ({
+            NAME :req.body.name,
+            DESCRIPTION: req.body.description,
+            CreationDate :req.body.creationDate,
+            PRICE:req.body.price
+        }
+        )
+        connection.query("INSERT INTO SHOES SET ?", shoes, (err, rows) => {
+            if(err) {
+                console.error(err)
+                res.json({
+                    success: false,
+                    err
+                })
+            }
+            else {
+                console.log('insert success!')
+                res.json({
+                    success: true,
+                    rows
+                })
+            }
+        })
+    }
+})
 module.exports = router;
