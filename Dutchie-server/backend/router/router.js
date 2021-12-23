@@ -222,16 +222,19 @@ router.get('/shipping_method', (req, res) => {
     })
 })
 
-// TODO lay ra phuong thuc van chuyen
+/**
+ * su dung de tra ve phuong thuc thanh toan
+ * */
 
 router.get('/payment_method',(req, res) => {
-
+    res.json({
+        success: true,
+        payment_type: "Trả khi nhận hàng",
+        active : true
+    })
 })
 
-
-
 // TODO lay toan bo gio hang
-
 router.get('/cart', (req, res) => {
 
 })

@@ -33,7 +33,9 @@ CREATE TABLE SHIPPING_METHOD (
       TimeShip      INT                             NULL
 );
 
- ENGINE = INNODB;
+
+
+iềnENGINE = INNODB;
 
 /* INSERT DATA */
 INSERT INTO SHOES ( NAME, DESCRIPTION, CreationDate, PATH_IMAGE_REVIEW, PRICE)
