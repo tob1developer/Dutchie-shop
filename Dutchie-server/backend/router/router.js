@@ -28,9 +28,9 @@ router.get('/example', function (req,res,){
 } )
 
 /**
- * Lay toan bo doi giay
+ * Lay toan bo giay
+ * @return array chua tat ca thong tin doi giay
  * */
-
 router.get('/shoes/get_all', function (req, res) {
     connection.query("SELECT * FROM SHOES", (err, rows) => {
         if(err) {
@@ -47,8 +47,11 @@ router.get('/shoes/get_all', function (req, res) {
     })
 })
 
-// TODO: Lay index doi giay
-
+/**
+ * Lay giay theo ID
+ * @param id la dc chon trong khi show all doi giay.
+ * @return Object 1 doi giat fillter id
+ * */
 router.get('/shoes/:id',function (req,res) {
     let id = req.params.id
     connection.query(`SELECT * FROM SHOES WHERE SHOES_ID = ${id}`, (err, rows) => {
@@ -65,23 +68,65 @@ router.get('/shoes/:id',function (req,res) {
         }
     })
 })
-//https://www.bezkoder.com/node-js-rest-api-express-mysql/
+
 /**
- * Lay toan bo giay dang hot
+ * Lay toan bo giay dang trending
+ * @return List giay dang co
  * */
-//TODO: Lay toan bo giay dang hot
-router.get('/shoes/trending', (req, res) => {
-
+router.get('/shoes/get/trending', (req, res) => {
+    connection.query(`SELECT * FROM SHOES WHERE Trending=1`, (err, rows) => {
+        if(err) {
+            res.json({
+                success: false,
+                err
+            })
+        } else {
+            res.json({
+                success: true,
+                rows
+            })
+        }
+    })
 })
 
-// TODO: Lay giay theo nam
-router.get('/shoes/male', (req, res) => {
-
+/**
+ * Lay toan bo giay cho nam
+ * @return List giay nam
+ * */
+router.get('/shoes/get/male', (req, res) => {
+    connection.query(`SELECT * FROM SHOES WHERE SEX='Nam'`, (err, rows) => {
+        if(err) {
+            res.json({
+                success: false,
+                err
+            })
+        } else {
+            res.json({
+                success: true,
+                rows
+            })
+        }
+    })
 })
 
-// TODO: lay toan bo theo nu
-router.get('/shoes/female', (req, res) => {
-
+/**
+ * Lay toan bo giay cho nu
+ * @return List giay nu
+ * */
+router.get('/shoes/get/female', (req, res) => {
+    connection.query(`SELECT * FROM SHOES WHERE SEX='Nu'`, (err, rows) => {
+        if(err) {
+            res.json({
+                success: false,
+                err
+            })
+        } else {
+            res.json({
+                success: true,
+                rows
+            })
+        }
+    })
 })
 
 
