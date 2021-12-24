@@ -136,10 +136,7 @@ const User = function (User) {
     this.LastName = User.LastName
     this.Phone = User.Phone
     this.Address = User.Address
-    this.City = User.City
-    this.FullName = User.FullName
     this.Email = User.Email
-    this.PhoneNumber = User.PhoneNumber
     this.CookieName = User.CookieName
 }
 /**
@@ -182,7 +179,7 @@ router.get('/post/user',(req, res) => {
  * @return insert neu chua co user va da luu cookie truoc do
  * */
 router.post('/post/post_user',jsonParser, (req, res) => {
-    createCookie(req,res);
+    // createCookie(req,res);
     let cookie = req.cookies.cookieName
     console.log(cookie)
     if(!req.body && cookie === undefined){
@@ -198,17 +195,16 @@ router.post('/post/post_user',jsonParser, (req, res) => {
             LastName :req.body.LastName,
             Phone :req.body.Phone,
             Address :req.body.Address,
-            FullName :req.body.FullName,
             Email :req.body.Email,
-            PhoneNumber :req.body.PhoneNumber,
             CreationDate :date,
             CookieName :cookie
             }
         )
         connection.query(`SELECT * FROM USER WHERE CookieName = ${cookie}`, (err, rows) => {
-            if (err === null){
-                connection.query('UPDATE USER SET FirstName = ?, LastName = ?, Phone = ?, Address = ?,FullName = ?,Email = ?, PhoneNumber = ? WHERE CookieName = ?',
-                    [user.FirstName,user.LastName,user.Phone,user.Address,user.FullName,user.Email,user.PhoneNumber,cookie],
+            console.log( 'ddd' +rows.length)
+            if (err === null && rows.length !== 0){
+                connection.query('UPDATE USER SET FirstName = ?, LastName = ?, Phone = ?, Address = ?,Email = ? WHERE CookieName = ?',
+                    [user.FirstName,user.LastName,user.Phone,user.Address,user.Email,cookie],
                     (err_update, rows_update) => {
                         if(err_update){
                             console.log("update user fail")
@@ -287,10 +283,108 @@ router.get('/payment_method',(req, res) => {
     })
 })
 
+// TODO: update  shoes vao gio hang
+router.post('/cart/update_submit', jsonParser, (req, res) => {
+    // createCookie(req,res);
+    let cookie = '11690075175647019'
+    connection.query(`SELECT * FROM CART WHERE CookieName = ${cookie}`, (err, rows) => {
+        if (err){
+            res.json({
+                success: false,
+                err
+            })
+        }
+        else {
+            const rowsConvert = JSON.parse(JSON.stringify(rows))
+            for (let index in req.body.rows){
+                let it = req.body.rows[index]
+                for (let indexToDb in rowsConvert){
+                    let itWithDb = rowsConvert[indexToDb]
+                    if (it.ShoesId === itWithDb.ShoesId){
+                        let newValue = itWithDb.Quaintly + it.Quaintly
+                        console.log(newValue)
+                        connection.query(`UPDATE CART SET Quaintly = ${newValue} WHERE ShoesId = ${it.ShoesId}`)
+                    }
+                }
+            }
+            res.json({
+                success: 'test'
+            })
+        }
+    })
+})
+
+
+//TODO: INSERT giay vao gio hang
+/**
+ * Ham lay user
+ * @param cookie truyen cookie
+ * @return UserID trong bang
+ * */
+async function getUserIDWithCookie(cookie) {
+
+    return new Promise(resolve => {
+        connection.query(`SELECT USER_ID FROM USER WHERE  CookieName = ${cookie}`, (err, rows) => {
+            if (err) console.log(err)
+            else {
+                let userID = JSON.parse(JSON.stringify(rows[0].USER_ID))
+                resolve(userID)
+            }
+        })
+    })
+}
+
+/**
+ * Insert giay vao cart
+ * @param Json co 2 truong ShoesID va Quaintly
+ * @return Json success hay ko
+ * */
+router.post('/cart/add_shoes', jsonParser,async (req, res) => {
+    let cookie = '11690075175647019'
+    let UserId = await getUserIDWithCookie(cookie);
+
+    connection.query(`INSERT INTO CART SET CookieName = ?, UserId = ?, ShoesId = ?, Quaintly = ?`,[
+        cookie, UserId, req.body.ShoesID, req.body.Quaintly
+    ], (err, rows) => {
+        if (err) {
+            res.json({
+                success: false,
+                err
+            })
+        } else {
+            res.json({
+                success: true,
+                rows
+            })
+        }
+    })
+})
+
+
+
 // TODO lay toan bo gio hang
 router.get('/cart', (req, res) => {
-
+    let cookie = '11690075175647019'
+    connection.query(`SELECT * FROM CART WHERE CookieName = ${cookie}`, (err, rows) => {
+        if(err){
+            res.json({
+                success: false,
+                err
+            })
+        }
+        else {
+            res.json({
+                success: true,
+                rows
+            })
+        }
+    })
 })
+
+
+
+
+
 
 // TODO tim kiem theo san pham : phat trien sau.
 
