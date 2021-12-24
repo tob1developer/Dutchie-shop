@@ -97,7 +97,13 @@ const User = function (User) {
     this.PhoneNumber = User.PhoneNumber
     this.CookieName = User.CookieName
 }
-// get user
+/**
+ * tra ve user da duoc luu trong DB
+ * @param cookie duoc co san trong do
+ * @return err neu ko co data trong DB
+ * @return rows neu co data trong DB
+ *
+ * */
 router.get('/post/user',(req, res) => {
     createCookie(req,res);
     let cookie = req.cookies.cookieName
@@ -124,12 +130,15 @@ router.get('/post/user',(req, res) => {
     }
 })
 
-// post user
-
+/**
+ * Co chuc nang cho nguoi dung submit thong tin de tao don thanh toan.
+ * @param Json user
+ * @return update neu  trung cookie va duoc luu truoc do
+ * @return insert neu chua co user va da luu cookie truoc do
+ * */
 router.post('/post/post_user',jsonParser, (req, res) => {
     createCookie(req,res);
     let cookie = req.cookies.cookieName
-    // let cookie = '5279581511142977'
     console.log(cookie)
     if(!req.body && cookie === undefined){
         console.error(`err no param ${req.body}`);
@@ -225,7 +234,6 @@ router.get('/shipping_method', (req, res) => {
 /**
  * su dung de tra ve phuong thuc thanh toan
  * */
-
 router.get('/payment_method',(req, res) => {
     res.json({
         success: true,
@@ -250,8 +258,12 @@ const Shoes = function (shoes) {
     this.PRICE = shoes.PRICE
 }
 
-// POST THANH CONG =))
-router.post('/shoes/test_post', jsonParser,function (req, res)  {
+/**
+ * Co chuc nang tra tao data shoe
+ * @param body tra ve noi dung json duoc user submit
+ * @return success -> true thi ra rows, false thi err
+ * */
+router.post('/post/shoes', jsonParser,function (req, res)  {
     if(!req.body){
         console.error(`err no param ${req.body}`);
         res.json({

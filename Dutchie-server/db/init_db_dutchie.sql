@@ -34,6 +34,19 @@ CREATE TABLE SHIPPING_METHOD (
 );
 
 
+# CREATE TABLE ODER (
+#       ODER_ID   INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+#       USER_ID    VARCHAR(40)                    NULL,
+#       LastName     VARCHAR(40)                    NULL,
+#       Phone        VARCHAR(20)                    NULL,
+#       Address      VARCHAR(100)                   NULL,
+#       City         VARCHAR(100)                    NULL,
+#       FullName     VARCHAR(100)                   NULL,
+#       Email        VARCHAR(100)                   NULL,
+#       PhoneNumber  VARCHAR(100)                   NULL,
+#       CreationDate VARCHAR(100)                   NULL,
+#       CookieName   VARCHAR(100)                    NOT NULL
+# );
 
 iềnENGINE = INNODB;
 
