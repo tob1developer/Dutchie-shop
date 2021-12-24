@@ -7,7 +7,7 @@ const bodyParser = require("body-parser")
 const jsonParser = bodyParser.json()
 
 
-//TODO: Example
+/*
 router.get('/example', function (req,res,){
 
     createCookie(req,res);
@@ -26,6 +26,7 @@ router.get('/example', function (req,res,){
         }
     })
 } )
+*/
 
 /**
  * Lay toan bo giay
@@ -109,6 +110,7 @@ router.get('/shoes/get/male', (req, res) => {
     })
 })
 
+
 /**
  * Lay toan bo giay cho nu
  * @return List giay nu
@@ -128,7 +130,6 @@ router.get('/shoes/get/female', (req, res) => {
         }
     })
 })
-
 
 
 const User = function (User) {
@@ -172,6 +173,7 @@ router.get('/post/user',(req, res) => {
     }
 })
 
+
 /**
  * Co chuc nang cho nguoi dung submit thong tin de tao don thanh toan.
  * @param Json user
@@ -179,7 +181,6 @@ router.get('/post/user',(req, res) => {
  * @return insert neu chua co user va da luu cookie truoc do
  * */
 router.post('/post/post_user',jsonParser, (req, res) => {
-    // createCookie(req,res);
     let cookie = req.cookies.cookieName
     console.log(cookie)
     if(!req.body && cookie === undefined){
@@ -249,7 +250,6 @@ router.post('/post/post_user',jsonParser, (req, res) => {
 })
 
 
-
 /**
  * Su dung phuong thuc van chuyen.
  *
@@ -272,6 +272,7 @@ router.get('/shipping_method', (req, res) => {
     })
 })
 
+
 /**
  * su dung de tra ve phuong thuc thanh toan
  * */
@@ -282,6 +283,7 @@ router.get('/payment_method',(req, res) => {
         active : true
     })
 })
+
 
 // TODO: update  shoes vao gio hang
 router.post('/cart/update_submit', jsonParser, (req, res) => {
@@ -382,12 +384,28 @@ router.get('/cart', (req, res) => {
 })
 
 
-
-
-
+/**
+ * @return tra ve noi dung oder
+ * */
+router.get('/oder', (req, res) => {
+    let cookie = '11690075175647019'
+    connection.query(`SELECT ShippingMethod,PaymentMethod FROM ODER WHERE CookieName = ${cookie}`, (err,rows) => {
+        if (err){
+            res.json({
+                success: false,
+                err
+            })
+        }
+        else {
+            res.json({
+                success: true,
+                rows
+            })
+        }
+    })
+})
 
 // TODO tim kiem theo san pham : phat trien sau.
-
 
 
 const Shoes = function (shoes) {
@@ -398,7 +416,7 @@ const Shoes = function (shoes) {
 }
 
 /**
- * Co chuc nang tra tao data shoe
+ * Co chuc nang tra tao data shoes
  * @param body tra ve noi dung json duoc user submit
  * @return success -> true thi ra rows, false thi err
  * */

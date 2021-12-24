@@ -36,9 +36,7 @@ CREATE TABLE SHIPPING_METHOD (
 
 CREATE TABLE ODER (
       ODER_ID   INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-      UserId             INTEGER                   NULL,
       ShippingMethod     INTEGER                   NULL,
-      Cart               INTEGER                   NULL,
       PaymentMethod      INTEGER                   NULL,
       CookieName         VARCHAR(100)              NULL
 );
