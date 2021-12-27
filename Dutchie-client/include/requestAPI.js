@@ -17,7 +17,7 @@ const POST_cartAddShoes = '/cart/add_shoes'
 const User = function (user){
     this.FirstName = user.FirstName
     this.LastName = user.LastName
-    this.phone = user.phone
+    this.Phone = user.Phone
     this.Address = user.Address
     this.Email = user.Email
     this.CreationDate = user.CreationDate
@@ -172,16 +172,22 @@ async function getCart(cookie){
 }
 
 //TODO: gui thong tin user len server de luu
-async function postUser(user){
+ function postUser(user){
     let options = {
         'method': 'POST',
         'url': `${url}:${port}${POST_user}`,
-        body: user
+        'headers': {
+            'Content-Type': 'application/json',
+            'Cookie': 'CookieName=11690075175641043'
+        },
+        body: JSON.stringify(user)
     }
+
     return new Promise( function (success, failure) {
         request(options, function (err,  response, body) {
             if(!err && response.statusCode === 200){
-                console.log('GET: success get with payment method')
+                console.log('GET: success post user')
+                console.log(body)
                 success(body);
             }else {
                 console.error(err)
@@ -208,5 +214,6 @@ module.exports = {
     getCart: getCart,
     postUser: postUser,
     postCartSubmit: postCartSubmit,
-    postCartAddShoes: postCartAddShoes
+    postCartAddShoes: postCartAddShoes,
+    User: User
 }

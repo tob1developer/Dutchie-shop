@@ -5,5 +5,4 @@ const  app = express()
 
 app.use(cookieParser())
 app.use('/',router)
-
 app.listen(3000,()=> console.log("listeing to 3000"))
