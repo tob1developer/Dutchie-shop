@@ -39,6 +39,21 @@ routers.post('/confirmUser',  urlencodedParser, (req, res) => {
     })
 })
 
+
+routers.get('/shoes_listing', (req, res) => {
+    res.render('ShoesListing')
+})
+
+
+routers.get('/cart', (req, res) => {
+    res.render('Cart')
+})
+
+
+routers.get('/checkout', (req, res) => {
+    res.render('Checkout')
+})
+
 // Tao cookie
 function createCookie(req, res){
     let cookie = req.cookies.CookieName
