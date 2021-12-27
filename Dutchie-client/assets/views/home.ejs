@@ -3,6 +3,9 @@
 <%- include('header'); -%>
 <body >
     <div>Hello</div>
+    <% testList = JSON.parse(data)%>
+    <% l1 = testList.Global%>
+    <div><%= testList.rows[0].Name%></div>
 </body>
 <%- include('footer'); -%>
 </html>
