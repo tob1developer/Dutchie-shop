@@ -8,12 +8,15 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
 routers.get('/', async (req, res) => {
-    // let test = await requestAPI.getAllShoesWithType('female');
-    let test = await requestAPI.getShippingMethod();
     createCookie(req,res);
-    console.log(req.cookies.CookieName)
+     let dataFemale = await requestAPI.getAllShoesWithType('female');
+     let dataTrending = await requestAPI.getAllShoesWithType('trending')
+     let dataMale = await requestAPI.getAllShoesWithType('Male')
+    console.log(dataFemale)
     res.render('home',{
-        data : test
+        dataFemale : dataFemale,
+        dataTrending : dataTrending,
+        dataMale : dataMale
     })
 })
 
