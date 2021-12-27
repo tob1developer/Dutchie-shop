@@ -1,0 +1,8 @@
+.toggle_title, .toggle_content {
+    position:relative;
+    z-index:2;
+}
+
+.toggle {
+    width: 100%;
+}

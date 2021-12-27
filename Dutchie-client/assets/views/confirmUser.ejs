@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<%- include('header'); -%>
+<script>
+    <!--console.log(<%= rows%>)-->
+    <!--alert(<%= rows%>)-->
+</script>
+<body>
+
+<form action="/confirmUser" method="POST">
+    <input type="text" name="FirstName"/>
+    <input type="text" name="LastName"/>
+    <input type="text" name="Phone"/>
+    <input type="text" name="Address"/>
+    <input type="text" name="Email"/>
+    <button type="submit">Send</button>
+</form>
+<%- include('footer'); -%>
+</body>
+</html>

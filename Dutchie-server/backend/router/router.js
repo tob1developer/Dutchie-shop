@@ -6,28 +6,6 @@ const router = express.Router()
 const bodyParser = require("body-parser")
 const jsonParser = bodyParser.json()
 
-
-/*
-router.get('/example', function (req,res,){
-
-    createCookie(req,res);
-
-    connection.query("SELECT * FROM EMPLOYEE", (err, rows) => {
-        if(err) {
-            res.json({
-                success: false,
-                err
-            })
-        } else {
-            res.json({
-                success: true,
-                rows
-            })
-        }
-    })
-} )
-*/
-
 /**
  * Lay toan bo giay
  * @return array chua tat ca thong tin doi giay
@@ -148,8 +126,7 @@ const User = function (User) {
  *
  * */
 router.get('/post/user',(req, res) => {
-    createCookie(req,res);
-    let cookie = req.cookies.cookieName
+    let cookie = req.body.CookieName
     if(cookie === undefined){
         res.json({
             status: "no user"
@@ -181,8 +158,7 @@ router.get('/post/user',(req, res) => {
  * @return insert neu chua co user va da luu cookie truoc do
  * */
 router.post('/post/post_user',jsonParser, (req, res) => {
-    let cookie = req.cookies.cookieName
-    console.log(cookie)
+    let cookie = req.body.CookieName
     if(!req.body && cookie === undefined){
         console.error(`err no param ${req.body}`);
         res.json({
@@ -202,7 +178,6 @@ router.post('/post/post_user',jsonParser, (req, res) => {
             }
         )
         connection.query(`SELECT * FROM USER WHERE CookieName = ${cookie}`, (err, rows) => {
-            console.log( 'ddd' +rows.length)
             if (err === null && rows.length !== 0){
                 connection.query('UPDATE USER SET FirstName = ?, LastName = ?, Phone = ?, Address = ?,Email = ? WHERE CookieName = ?',
                     [user.FirstName,user.LastName,user.Phone,user.Address,user.Email,cookie],
@@ -287,8 +262,8 @@ router.get('/payment_method',(req, res) => {
 
 // TODO: update  shoes vao gio hang
 router.post('/cart/update_submit', jsonParser, (req, res) => {
-    // createCookie(req,res);
-    let cookie = '11690075175647019'
+
+    let cookie = req.body.CookieName
     connection.query(`SELECT * FROM CART WHERE CookieName = ${cookie}`, (err, rows) => {
         if (err){
             res.json({
@@ -342,7 +317,7 @@ async function getUserIDWithCookie(cookie) {
  * @return Json success hay ko
  * */
 router.post('/cart/add_shoes', jsonParser,async (req, res) => {
-    let cookie = '11690075175647019'
+    let cookie = req.body.CookieName
     let UserId = await getUserIDWithCookie(cookie);
 
     connection.query(`INSERT INTO CART SET CookieName = ?, UserId = ?, ShoesId = ?, Quaintly = ?`,[
@@ -366,7 +341,7 @@ router.post('/cart/add_shoes', jsonParser,async (req, res) => {
 
 // TODO lay toan bo gio hang
 router.get('/cart', (req, res) => {
-    let cookie = '11690075175647019'
+    let cookie = req.body.CookieName
     connection.query(`SELECT * FROM CART WHERE CookieName = ${cookie}`, (err, rows) => {
         if(err){
             res.json({
@@ -388,7 +363,7 @@ router.get('/cart', (req, res) => {
  * @return tra ve noi dung oder
  * */
 router.get('/oder', (req, res) => {
-    let cookie = '11690075175647019'
+    let cookie = req.body.CookieName
     connection.query(`SELECT ShippingMethod,PaymentMethod FROM ODER WHERE CookieName = ${cookie}`, (err,rows) => {
         if (err){
             res.json({
@@ -452,27 +427,6 @@ router.post('/post/shoes', jsonParser,function (req, res)  {
         })
     }
 })
-
-
-/**
- * Khoi tao cookie
- * @param req tra ve noi dung cua nguoi dung
- * @param res gui noi dung tu server
- * @return cookieName de luu thong tin nguoi dung.
- *
- * */
-function createCookie(req, res){
-    let cookie = req.cookies.cookieName
-    if(cookie === undefined){
-        var randomNumber = Math.random().toString()
-        randomNumber =randomNumber.substring(2, randomNumber.length)
-        res.cookie('cookieName',randomNumber,{ maxAge: 900000, httpOnly: true })
-        console.log('cookie create successfully')
-    }
-    else {
-        console.log('cookie exists', cookie)
-    }
-}
 
 
 module.exports = router;

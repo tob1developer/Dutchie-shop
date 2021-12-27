@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<%- include('header'); -%>
+<body >
+    <div>Hello</div>
+    <% testList = JSON.parse(data)%>
+    <% l1 = testList.Global%>
+    <div><%= testList.rows.length%></div>
+</body>
+<%- include('footer'); -%>
+</html>
