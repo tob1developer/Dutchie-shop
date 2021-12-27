@@ -12,4 +12,8 @@ routers.get('/', async (req, res) => {
     })
 })
 
+routers.get('/confirmUser',(req, res) => {
+    res.render('confirmUser')
+})
+
 module.exports = routers

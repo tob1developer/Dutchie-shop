@@ -202,7 +202,7 @@ router.post('/post/post_user',jsonParser, (req, res) => {
             }
         )
         connection.query(`SELECT * FROM USER WHERE CookieName = ${cookie}`, (err, rows) => {
-            console.log( 'ddd' +rows.length)
+            console.log( 'ddd' +JSON.stringify(rows))
             if (err === null && rows.length !== 0){
                 connection.query('UPDATE USER SET FirstName = ?, LastName = ?, Phone = ?, Address = ?,Email = ? WHERE CookieName = ?',
                     [user.FirstName,user.LastName,user.Phone,user.Address,user.Email,cookie],

@@ -18,7 +18,7 @@ const User = function (user){
     this.FirstName = user.FirstName
     this.LastName = user.LastName
     this.phone = user.phone
-    this.Addess = user.Addess
+    this.Address = user.Address
     this.Email = user.Email
     this.CreationDate = user.CreationDate
     this.CookieName = user.CookieName
@@ -172,7 +172,25 @@ async function getCart(cookie){
 }
 
 //TODO: gui thong tin user len server de luu
-async function postUser(){}
+async function postUser(user){
+    let options = {
+        'method': 'POST',
+        'url': `${url}:${port}${POST_user}`,
+        body: user
+    }
+    return new Promise( function (success, failure) {
+        request(options, function (err,  response, body) {
+            if(!err && response.statusCode === 200){
+                console.log('GET: success get with payment method')
+                success(body);
+            }else {
+                console.error(err)
+                failure(err)
+            }
+        })
+    })
+
+    }
 
 //TODO : update data cart
 async function postCartSubmit(){}

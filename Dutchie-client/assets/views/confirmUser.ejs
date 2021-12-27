@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<%- include('header'); -%>
+<div>L1</div>
+<script>
+    function test() {
+        var myHeaders = new Headers();
+        myHeaders.append("Access-Control-Allow-Origin","http://0.0.0.0:3000/post/post_user")
+        myHeaders.append('Access-Control-Allow-Credentials', 'true');
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Cookie", "cookieName=11690075175647012");
+        var raw = JSON.stringify({
+            "FirstName": "FirddstName",
+            "LastName": "LastName",
+            "Phone": "Phone",
+            "Address": "Address",
+            "Email": "Email"
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+
+        fetch("http://0.0.0.0:3000/post/post_user", requestOptions)
+            .then(response => response.text())
+            .then(result =>alert(result))
+            .catch(error => alert(error));
+        // alert('dlld')
+        // CookieName=11690075175647012
+    }
+</script>
+<!--<form>-->
+<!--    <div class="mb-3">-->
+<!--        <label for="exampleInputFirstName" class="form-label">First Name</label>-->
+<!--        <input  class="form-control" id="exampleInputFirstName" aria-describedby="emailHelp">-->
+<!--    </div>-->
+<!--    <div class="mb-3">-->
+<!--        <label for="exampleInputLastName" class="form-label">Last Name</label>-->
+<!--        <input  class="form-control" id="exampleInputLastName">-->
+<!--    </div>-->
+<!--     <div class="mb-3">-->
+<!--        <label for="exampleInputPhone" class="form-label">Phone</label>-->
+<!--        <input  class="form-control" id="exampleInputPhone">-->
+<!--    </div>-->
+<!--     <div class="mb-3">-->
+<!--        <label for="exampleInputAddress" class="form-label">Address</label>-->
+<!--        <input class="form-control" id="exampleInputAddress">-->
+<!--    </div>-->
+<!--     <div class="mb-3">-->
+<!--        <label for="exampleInputEmail" class="form-label">Email</label>-->
+<!--        <input  class="form-control" id="exampleInputEmail">-->
+<!--    </div>-->
+
+<!--    <button  type="button" class="btn btn-primary" onclick="test()">Submit</button>-->
+<!--</form>-->
+<button  type="button" class="btn btn-primary" onclick="test()">Submit</button>
+
+<%- include('footer'); -%>
+</html>
