@@ -29,15 +29,16 @@
 
     <div class="container">
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-            <label class="btn btn-outline-primary" for="btnradio1">Trending</label>
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" >
+            <label class="btn btn-outline-primary" data-bs-target="#carouselExampleControls1" data-bs-slide-to="0" for="btnradio1">Trending</label>
 
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-            <label class="btn btn-outline-primary" for="btnradio2">Nữ</label>
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" data-bs-target="#carouselExampleIndicators">
+            <label class="btn btn-outline-primary" data-bs-target="#carouselExampleControls1" data-bs-slide-to="1" for="btnradio2">Nữ</label>
 
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-            <label class="btn btn-outline-primary" for="btnradio3">Nam</label>
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" data-bs-target="#carouselExampleIndicators">
+            <label class="btn btn-outline-primary" data-bs-target="#carouselExampleControls1" data-bs-slide-to="2" for="btnradio3">Nam</label>
         </div>
+
 
         <% listTrending =  JSON.parse(dataTrending).rows%>
         <% listMale =  JSON.parse(dataMale).rows%>
@@ -51,7 +52,8 @@
                         <% for (let i = 0;i < 4;i++){ %>
                             <div class="col">
                                 <div class="card h-100">
-                                    <img src="./img/image7.png" class="card-img-top" alt="...">
+                                    <% pathImage = `http://0.0.0.0:3131/${listTrending[i].PathImageReview}/1.jpg` %>
+                                    <img src="<%= pathImage%>" class="card-img-top" alt="<%= pathImage%>">
                                     <div class="card-body">
                                         <h5 class="card-title"><%=listTrending[i].Name %></h5>
                                         <p class="card-text"><%= listTrending[i].Description %></p>
@@ -72,7 +74,8 @@
                         <% for (let i = 0;i < 4;i++){ %>
                         <div class="col">
                             <div class="card h-100">
-                                <img src="./img/image7.png" class="card-img-top" alt="...">
+                                <% pathImage = `http://0.0.0.0:3131/${listMale[i].PathImageReview}/1.jpg` %>
+                                <img src="<%= pathImage%>" class="card-img-top" alt="<%= pathImage%>">
                                 <div class="card-body">
                                     <h5 class="card-title"><%=listMale[i].Name %></h5>
                                     <p class="card-text"><%= listMale[i].Description %></p>
@@ -94,7 +97,8 @@
                         <% for (let i = 0;i < 4;i++){ %>
                         <div class="col">
                             <div class="card h-100">
-                                <img src="./img/image7.png" class="card-img-top" alt="...">
+                                <% pathImage = `http://0.0.0.0:3131/${listFemale[i].PathImageReview}/1.jpg` %>
+                                <img src="<%= pathImage%>" class="card-img-top" alt="<%= pathImage%>">
                                 <div class="card-body">
                                     <h5 class="card-title"><%=listFemale[i].Name %></h5>
                                     <p class="card-text"><%= listFemale[i].Description %></p>
