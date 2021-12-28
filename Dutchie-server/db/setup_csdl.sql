@@ -25,7 +25,7 @@ CREATE TABLE USER (
 CREATE TABLE SHIPPING_METHOD (
                                  SHIPPING_ID   INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
                                  NameShippingMethod    VARCHAR(100)               NULL,
-                                 Price                 VARCHAR(100)               NULL,
+                                 Price                 INTEGER               NULL,
                                  TimeShip              INT                        NULL
 );
 
@@ -83,9 +83,9 @@ VALUES ('Basas Hook N''Loop NE - Mule', 'Black',520000,'VND','Nam',1,4, '10');
 
 /*INSERT GIAO HANG VAN CHUYEN*/
 INSERT INTO SHIPPING_METHOD ( NameShippingMethod, Price, TimeShip)
-VALUES ('Giao hàng tiêu chuẩn','100.100 VND',7);
+VALUES ('Giao hàng tiêu chuẩn',100000,7);
 INSERT INTO SHIPPING_METHOD ( NameShippingMethod, Price, TimeShip)
-VALUES ('Giao hàng nhanh','150.100 VND',1);
+VALUES ('Giao hàng nhanh',150000,1);
 
 DROP PROCEDURE IF EXISTS sp_GetDutchie;
 DELIMITER //
