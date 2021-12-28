@@ -125,7 +125,7 @@ const User = function (User) {
  * @return rows neu co data trong DB
  *
  * */
-router.get('/post/user',(req, res) => {
+router.get('/post/user', jsonParser,(req, res) => {
     let cookie = req.body.CookieName
     if(cookie === undefined){
         res.json({
@@ -260,7 +260,7 @@ router.get('/payment_method',(req, res) => {
 })
 
 
-// TODO: update  shoes vao gio hang
+// TODO: update  shoes vao gio hang (day la trong cart)
 router.post('/cart/update_submit', jsonParser, (req, res) => {
 
     let cookie = req.body.CookieName
@@ -314,14 +314,13 @@ async function getUserIDWithCookie(cookie) {
 /**
  * Insert giay vao cart
  * @param Json co 2 truong ShoesID va Quaintly
- * @return Json success hay ko
+ * @return Json success hay ko (day la trong detail)
  * */
 router.post('/cart/add_shoes', jsonParser,async (req, res) => {
     let cookie = req.body.CookieName
-    let UserId = await getUserIDWithCookie(cookie);
 
-    connection.query(`INSERT INTO CART SET CookieName = ?, UserId = ?, ShoesId = ?, Quaintly = ?`,[
-        cookie, UserId, req.body.ShoesID, req.body.Quaintly
+    connection.query(`INSERT INTO CART SET CookieName = ?, ShoesId = ?, Quaintly = ?`,[
+        cookie, req.body.ShoesID, req.body.Quaintly
     ], (err, rows) => {
         if (err) {
             res.json({
@@ -340,8 +339,9 @@ router.post('/cart/add_shoes', jsonParser,async (req, res) => {
 
 
 // TODO lay toan bo gio hang
-router.get('/cart', (req, res) => {
+router.get('/cart', jsonParser,(req, res) => {
     let cookie = req.body.CookieName
+    console.log('======='  + cookie)
     connection.query(`SELECT * FROM CART WHERE CookieName = ${cookie}`, (err, rows) => {
         if(err){
             res.json({
@@ -378,6 +378,57 @@ router.get('/oder', (req, res) => {
             })
         }
     })
+})
+
+router.post('/post/oder',jsonParser, (req, res) => {
+    let oder = {
+        ShippingMethod: req.body.ShippingMethod,
+        PaymentMethod: req.body.PaymentMethod,
+        CookieName: req.body.CookieName
+    }
+
+    connection.query(`SELECT * FROM ODER WHERE CookieName = ${req.body.CookieName}`, (err, rows) =>{
+        if (err){
+            res.json({
+                success: false,
+                err
+            })
+        }
+        else {
+            if(rows !== []){
+                connection.query('INSERT INTO ODER SET ?', oder, (err, rows) => {
+                    if(err){
+                        res.json({
+                            success: false,
+                            err
+                        })
+                    } else {
+                        res.json({
+                            success: true,
+                            rows
+                        })
+                    }
+                })
+            }
+            else {
+                connection.query(`UPDATE  ODER SET ShippingMethod = ${req.body.ShippingMethod} , PaymentMethod = ${req.body.PaymentMethod} WHERE  CookieName =${req.body.CookieName} `, oder, (err, rows) => {
+                    if(err){
+                        res.json({
+                            success: false,
+                            err
+                        })
+                    } else {
+                        res.json({
+                            success: true,
+                            rows
+                        })
+                    }
+                })
+            }
+        }
+    })
+
+
 })
 
 // TODO tim kiem theo san pham : phat trien sau.

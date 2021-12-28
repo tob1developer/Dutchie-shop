@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<%- include('header'); -%>
+<body>
+<%# dt = dataSuccess%>
+<%# if(dt !== undefined) console.log(JSON.stringify(dataSuccess)) %>
+
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="#">Shop</a></li>
+                <li class="active">Thanh Toán</li>
+            </ol>
+        </div><!--/breadcrums-->
+
+        <div class="step-one">
+            <h2 class="heading">Thông tin giao dịch</h2>
+        </div>
+        <div class="checkout-options">
+            <h3>Người dùng</h3>
+            <p>Tùy chọn Thanh toán</p>
+            <ul class="nav">
+                <li>
+                    <label><input type="checkbox"> Đăng Ký tài khoản</label>
+                </li>
+                <li>
+                    <label><input type="checkbox"> Thanh toán chế độ khách</label>
+                </li>
+                <li>
+                    <a href=""><i class="fa fa-times"></i>Xóa</a>
+                </li>
+            </ul>
+        </div><!--/checkout-options-->
+
+        <div class="register-req">
+            <p>Sử dụng Đăng ký để dễ dàng truy cập vào lịch sử đơn đặt hàng của bạn hoặc sử dụng Thanh toán với chế độ Khách</p>
+        </div><!--/register-req-->
+
+        <div class="shopper-informations">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="shopper-info">
+                        <p>Thông tin người mua hàng</p>
+                        <form action="/checkout" method="POST">
+                            <% dataUserr = JSON.parse(dataUser).rows[0] %>
+                            <% if(dataUserr !== undefined) {%>
+                                <input type="text" placeholder="Họ" name="FirstName" value="<%= dataUserr.FirstName%>" >
+                                <input type="text" placeholder="Tên" name="LastName"value="<%= dataUserr.LastName%>">
+                                <input type="text" placeholder="Số điện thoại" name="Phone"value="<%= dataUserr.Phone%>">
+                                <input type="text" placeholder="Địa chỉ" name="Address"value="<%= dataUserr.Address%>">
+                                <input type="text" placeholder="Email" name="Email"value="<%= dataUserr.Email%>">
+                            <% } else { %>
+                                <input type="text" placeholder="Họ" name="FirstName"  >
+                                <input type="text" placeholder="Tên" name="LastName">
+                                <input type="text" placeholder="Số điện thoại" name="Phone">
+                                <input type="text" placeholder="Địa chỉ" name="Address">
+                                <input type="text" placeholder="Email" name="Email">
+                            <% }%>
+
+                            <% dataShipping = JSON.parse(shippingMethod).rows%>
+                            <% for (i = 0;i < dataShipping.length ; i++) {%>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        <%= dataShipping[i].NameShippingMethod%> - <%= dataShipping[i].Price%> VND - <%=dataShipping[i].TimeShip %> ngày.
+                                    </label>
+                                </div>
+                            <% }%>
+
+                            <% dataPayment = JSON.parse(paymentMethod)%>
+                            <div> Phuương thức thanh toán :  <%= dataPayment.payment_type%></div>
+                            <button type="submit" >Xác nhận </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-sm-5 clearfix">
+                </div>
+                <div class="col-sm-4">
+                    <div class="order-message">
+                        <p>Vận Chuyển</p>
+                        <textarea name="message"  placeholder="Ghi chú về đơn đặt hàng của bạn, Ghi chú đặc biệt khi giao hàng" rows="16"></textarea>
+                        <label><input type="checkbox"> Vận chuyển đến địa chỉ thanh toán</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> <!--/#cart_items-->
+
+</body>
+
+<%- include('footer'); -%>
+</html>

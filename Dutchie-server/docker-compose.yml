@@ -27,4 +27,11 @@ services:
       - ./backend:/backend
     environment:
       - DATABASE_HOST=db
-
+# S3
+  S3:
+    image: ubuntu/apache2:2.4-20.04_beta
+    ports:
+      - "3131:80"
+    restart: always
+    volumes:
+      - ./backend/img:/var/www/html
