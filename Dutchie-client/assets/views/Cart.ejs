@@ -3,6 +3,7 @@
 <%- include('header'); -%>
 <body>
 
+
 <section id="cart_items">
     <div class="container">
         <div class="breadcrumbs">
@@ -24,82 +25,34 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td class="cart_product">
-                        <a href=""><img src="images/cart/1.png" alt=""></a>
-                    </td>
-                    <td class="cart_description">
-                        <h4><a href="">BASAS SIMPLE LIFE NE - LOW TOP - WHITE</a></h4>
-                        <p>ID: 1089772</p>
-                    </td>
-                    <td class="cart_price">
-                        <p>590.000</p>
-                    </td>
-                    <td class="cart_quantity">
-                        <div class="cart_quantity_button">
-                            <a class="cart_quantity_up" href=""> + </a>
-                            <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                            <a class="cart_quantity_down" href=""> - </a>
-                        </div>
-                    </td>
-                    <td class="cart_total">
-                        <p class="cart_total_price">590.000</p>
-                    </td>
-                    <td class="cart_delete">
-                        <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="cart_product">
-                        <a href=""><img src="images/cart/5.png" alt=""></a>
-                    </td>
-                    <td class="cart_description">
-                        <h4><a href="">BASAS SIMPLE LIFE NE - LOW TOP - WHITE</a></h4>
-                        <p>ID: 1089772</p>
-                    </td>
-                    <td class="cart_price">
-                        <p>590.000</p>
-                    </td>
-                    <td class="cart_quantity">
-                        <div class="cart_quantity_button">
-                            <a class="cart_quantity_up" href=""> + </a>
-                            <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                            <a class="cart_quantity_down" href=""> - </a>
-                        </div>
-                    </td>
-                    <td class="cart_total">
-                        <p class="cart_total_price">509.000</p>
-                    </td>
-                    <td class="cart_delete">
-                        <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="cart_product">
-                        <a href=""><img src="images/cart/3.png" alt=""></a>
-                    </td>
-                    <td class="cart_description">
-                        <h4><a href="">BASAS SIMPLE LIFE NE - LOW TOP - WHITE</a></h4>
-                        <p>ID: 1089772</p>
-                    </td>
-                    <td class="cart_price">
-                        <p>599.999</p>
-                    </td>
-                    <td class="cart_quantity">
-                        <div class="cart_quantity_button">
-                            <a class="cart_quantity_up" href=""> + </a>
-                            <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                            <a class="cart_quantity_down" href=""> - </a>
-                        </div>
-                    </td>
-                    <td class="cart_total">
-                        <p class="cart_total_price">599.999</p>
-                    </td>
-                    <td class="cart_delete">
-                        <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                </tr>
+                <%list = JSON.parse(data).rows%>
+                <% for (i = 0;i < list.length;i++ ) {%>
+                    <tr>
+                        <td class="cart_product">
+                            <a href=""><img src="images/cart/1.png" alt=""></a>
+                        </td>
+                        <td class="cart_description">
+                            <h4><a href="">BASAS SIMPLE LIFE NE - LOW TOP - WHITE</a></h4>
+                            <p>ID: 1089772</p>
+                        </td>
+                        <td class="cart_price">
+                            <p>590.000</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                <a class="cart_quantity_up" href=""> + </a>
+                                <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
+                                <a class="cart_quantity_down" href=""> - </a>
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price">590.000</p>
+                        </td>
+                        <td class="cart_delete">
+                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+            <% }%>
                 </tbody>
             </table>
         </div>
@@ -136,10 +89,9 @@
             <div class="col-sm-6">
                 <div class="total_area">
                     <ul>
-                        <li>Đơn giá <span>590.000</span></li>
-                        <li>Thuế<span>2.000</span></li>
-                        <li>Phí Ship hàng<span>Free</span></li>
-                        <li>Tổng <span>592.000</span></li>
+                        <% value = 0  %>
+                        <li>Đơn giá <span><%= value = 0  %></span></li>
+                        <li>Tổng <span>0</span></li>
                     </ul>
                     <a class="btn btn-default update" href="">Cập nhật</a>
                     <a class="btn btn-default check_out" href="">Kiểm tra lại</a>
@@ -147,7 +99,7 @@
             </div>
         </div>
     </div>
-</section><!--/#do_action-->
+</section>
 
 
 

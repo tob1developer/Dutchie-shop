@@ -157,6 +157,13 @@ async function getCart(cookie){
     let option = {
         'method':'GET',
         'url':`${url}:${port}${GET_cart}`,
+        'headers': {
+            'Content-Type': 'application/json',
+            'Cookie':  `CookieName=${cookie}`
+        },
+        body: JSON.stringify({
+            "CookieName": cookie
+        })
     };
     return new Promise( function (success, failure) {
         request(option, function (err,  response, body) {

@@ -340,8 +340,9 @@ router.post('/cart/add_shoes', jsonParser,async (req, res) => {
 
 
 // TODO lay toan bo gio hang
-router.get('/cart', (req, res) => {
+router.get('/cart', jsonParser,(req, res) => {
     let cookie = req.body.CookieName
+    console.log('======='  + cookie)
     connection.query(`SELECT * FROM CART WHERE CookieName = ${cookie}`, (err, rows) => {
         if(err){
             res.json({

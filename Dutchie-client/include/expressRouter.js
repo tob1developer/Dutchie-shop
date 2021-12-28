@@ -11,7 +11,7 @@ routers.get('/', async (req, res) => {
     createCookie(req,res);
      let dataFemale = await requestAPI.getAllShoesWithType('female');
      let dataTrending = await requestAPI.getAllShoesWithType('trending')
-     let dataMale = await requestAPI.getAllShoesWithType('Male')
+     let dataMale = await requestAPI.getAllShoesWithType('male')
     console.log(dataFemale)
     res.render('home',{
         dataFemale : dataFemale,
@@ -51,9 +51,14 @@ routers.get('/shoes_listing', async (req, res) => {
 })
 
 
-routers.get('/cart', (req, res) => {
-    res.render('Cart')
+routers.get('/cart', urlencodedParser,async (req, res) => {
+    let cookie = req.cookies.CookieName
+    let data = await requestAPI.getCart(cookie)
+    res.render('Cart', {
+        data: data
+    })
 })
+
 
 
 routers.get('/checkout', (req, res) => {
