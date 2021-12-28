@@ -15,19 +15,20 @@
             <div class="col">
                <div class="col-sm-7">
                   <div class="product-information">
-                     <img src="images/product-details/new.jpg" class="newarrival" alt="" />
-                     <h2>Klein Sleeveless Colorblock Scuba</h2>
-                     <p>ID: 1089772</p>
-                     <img src="images/product-details/rating.png" alt="" />
-                     <span>
-									<span><%= object.Price  %> <%= object.Currency%></span>
-									<label>Số Lượng</label>
-									<input type="txet" value="1" />
-									<button type="button" class="btn btn-fefault cart">
-										<i class="fa fa-shopping-cart"></i>
-										Thêm vào giỏ hàng
-									</button>
-								</span>
+                     <form action="/detail/<%= object.SHOES_ID%>  " method="POST">
+                        <h2><%= object.Name  %> </h2>
+                        <p>ID:  <%= object.SHOES_ID%></p>
+                        <span>
+                        <span><%= object.Price  %> <%= object.Currency%></span>
+                        <label>Số Lượng</label>
+                        <input type="text" value="1" name="CurrentQuantity" />
+                        <button type="submit" class="btn btn-fefault cart">
+                            <i class="fa fa-shopping-cart"></i>
+                            Thêm vào giỏ hàng
+                        </button>
+                    </span>
+                     </form>
+
                      <p><b>Tình trạng:</b> Còn hàng ( <%= object.CurrentQuantity%> )</p>
                      <p><b>Trạng thái:</b> New</p>
                      <p><b>Cửa hàng:</b> Duchier</p>

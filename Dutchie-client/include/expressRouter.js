@@ -54,15 +54,71 @@ routers.get('/shoes_listing', async (req, res) => {
 routers.get('/cart', urlencodedParser,async (req, res) => {
     let cookie = req.cookies.CookieName
     let data = await requestAPI.getCart(cookie)
+    let dataAllShoes = await requestAPI.getAllShoes()
     res.render('Cart', {
-        data: data
+        data: data,
+        dataAllShoes: dataAllShoes
+    })
+})
+//
+// routers.post('/cart', urlencodedParser , async  (req, res) => {
+//     let cookie = req.cookies.CookieName
+//     let bodyy = req.body
+//     console.log(bodyy)
+//     let data = await requestAPI.getCart(cookie)
+//     let dataAllShoes = await requestAPI.getAllShoes()
+//     res.render('Cart', {
+//         data: data,
+//         dataAllShoes: dataAllShoes
+//     })
+// })
+
+
+
+routers.get('/checkout', urlencodedParser, async (req, res) => {
+    let cookie = req.cookies.CookieName
+    let dataUser = await requestAPI.getUserWithCookie(cookie)
+    let shippingMethod = await requestAPI.getShippingMethod();
+    let paymentMethod = await requestAPI.getPaymentMethod();
+    res.render('Checkout',{
+        dataUser: dataUser,
+        shippingMethod:shippingMethod,
+        paymentMethod: paymentMethod
     })
 })
 
+routers.post('/checkout',urlencodedParser,async (req, res) => {
+    let cookie = req.cookies.CookieName
+    let user = new requestAPI.User({
+        FirstName : req.body.FirstName,
+        LastName : req.body.LastName,
+        Phone : req.body.Phone,
+        Address : req.body.Address,
+        Email : req.body.Email,
+        CreationDate: new Date(),
+        CookieName: cookie
+    })
 
 
-routers.get('/checkout', (req, res) => {
-    res.render('Checkout')
+    let dataUser = await requestAPI.getUserWithCookie(cookie)
+    let data = await requestAPI.postUser(user)
+    let shippingMethod = await requestAPI.getShippingMethod();
+    let paymentMethod = await requestAPI.getPaymentMethod();
+
+    let oder = {
+        ShippingMethod: 1,
+        PaymentMethod: 1,
+        CookieName: cookie
+    }
+    let postOder = requestAPI.postOder(oder)
+    console.log(postOder)
+
+    res.render('Checkout',{
+        dataUser: dataUser,
+        shippingMethod:shippingMethod,
+        paymentMethod: paymentMethod,
+        dataSuccess : data
+    })
 })
 
 routers.get('/detail/:id', async (req, res) => {
@@ -73,6 +129,19 @@ routers.get('/detail/:id', async (req, res) => {
         data: data
     })
 })
+routers.post('/detail/:id',urlencodedParser, async (req, res) => {
+    let value = req.body.CurrentQuantity
+    let cookie = req.cookies.CookieName
+    let id = req.params.id
+    console.log(id)
+    let data =  await requestAPI.getShoesWithId(id)
+    let postData = await requestAPI.postCartAddShoes(id,value,cookie)
+    console.log(postData)
+    res.render('detail', {
+        data: data,
+        postData: postData
+    })
+} )
 
 
 // Tao cookie

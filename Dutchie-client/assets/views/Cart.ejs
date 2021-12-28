@@ -2,7 +2,7 @@
 <html>
 <%- include('header'); -%>
 <body>
-
+<form action="/cart" method="POST">
 
 <section id="cart_items">
     <div class="container">
@@ -26,30 +26,38 @@
                 </thead>
                 <tbody>
                 <%list = JSON.parse(data).rows%>
+                <%listShoes = JSON.parse(dataAllShoes).rows%>
+
+
+
+
+
                 <% for (i = 0;i < list.length;i++ ) {%>
+                    <% idShoes = list[i].ShoesId %>
+                        <% price = listShoes[idShoes].Price%>
                     <tr>
                         <td class="cart_product">
-                            <a href=""><img src="images/cart/1.png" alt=""></a>
+                            <% pathImage = `http://0.0.0.0:3131/${list[i].ShoesId}/1.jpg` %>
+                            <a href="/detail/<%= idShoes%>"><img src="<%=pathImage%>" alt="pathImage" width="100" height="100"></a>
                         </td>
                         <td class="cart_description">
-                            <h4><a href="">BASAS SIMPLE LIFE NE - LOW TOP - WHITE</a></h4>
-                            <p>ID: 1089772</p>
+                            <h4><a href=""><%= listShoes[idShoes].Name%></a></h4>
+                            <input type="text" name ="idShoes" value="<%= idShoes%>"   >
+
                         </td>
                         <td class="cart_price">
-                            <p>590.000</p>
+                            <p><%=price%></p>
+                            <p>VND</p>
                         </td>
                         <td class="cart_quantity">
                             <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
+                                <input class="cart_quantity_input" type="text" name="Quaintly" value="<%=list[i].Quaintly%>" autocomplete="off" size="2">
                             </div>
                         </td>
                         <td class="cart_total">
-                            <p class="cart_total_price">590.000</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                            <%realprice = price*list[i].Quaintly%>
+                            <p class="cart_total_price"><%=realprice%></p>
+                            <p>VND</p>
                         </td>
                     </tr>
             <% }%>
@@ -57,35 +65,12 @@
             </table>
         </div>
     </div>
-</section> <!--/#cart_items-->
+</section>
 
 <section id="do_action">
     <div class="container">
-        <div class="heading">
-            <h3>Bạn Muốn Gì Tiếp Theo ?</h3>
-            <p>Nếu bạn muốn gì đó, hãy lựa chọn .</p>
-        </div>
+
         <div class="row">
-            <div class="col-sm-6">
-                <div class="chose_area">
-                    <ul class="user_option">
-                        <li>
-                            <input type="checkbox">
-                            <label>Sử dụng mã giảm giá</label>
-                        </li>
-                        <li>
-                            <input type="checkbox">
-                            <label>Sử dụng Voucher</label>
-                        </li>
-                        <li>
-                            <input type="checkbox">
-                            <label>Khác...</label>
-                        </li>
-                    </ul>
-
-
-                </div>
-            </div>
             <div class="col-sm-6">
                 <div class="total_area">
                     <ul>
@@ -93,22 +78,15 @@
                         <li>Đơn giá <span><%= value = 0  %></span></li>
                         <li>Tổng <span>0</span></li>
                     </ul>
-                    <a class="btn btn-default update" href="">Cập nhật</a>
+<!--                    <a class="btn btn-default update" type="submit">Cập nhật</a>-->
+                    <button class="btn btn-default update" type="submit">Cập nhật</button>
                     <a class="btn btn-default check_out" href="">Kiểm tra lại</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-
-
-
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.scrollUp.min.js"></script>
-<script src="js/jquery.prettyPhoto.js"></script>
-<script src="js/main.js"></script>
+</form>
 </body>
 <%- include('footer'); -%>
 </html>

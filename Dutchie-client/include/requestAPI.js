@@ -8,6 +8,7 @@ const GET_shippingMethod = '/shipping_method'
 const GET_paymentMethod = '/payment_method'
 const GET_shoesMale = '/shoes/get/male'
 const GET_shoesFemale = '/shoes/get/female'
+const GET_user ='/post/user'
 const GET_cart = '/cart'
 const POST_user = '/post/post_user'
 const POST_cartSubmit = '/cart/update_sumbit'
@@ -185,11 +186,37 @@ async function getCart(cookie){
         'url': `${url}:${port}${POST_user}`,
         'headers': {
             'Content-Type': 'application/json',
-            'Cookie': 'CookieName=11690075175641043'
+            'Cookie': user.CookieName
         },
         body: JSON.stringify(user)
     }
 
+    return new Promise( function (success, failure) {
+        request(options, function (err,  response, body) {
+            if(!err && response.statusCode === 200){
+                console.log('GET: success post user')
+                console.log(body)
+                success(body);
+            }else {
+                console.error(err)
+                failure(err)
+            }
+        })
+    })
+}
+
+async function getUserWithCookie(cookie) {
+    let options = {
+        'method': 'GET',
+        'url': `${url}:${port}${GET_user}`,
+        'headers': {
+            'Content-Type': 'application/json',
+            'Cookie': cookie
+        },
+        body: JSON.stringify({
+            "CookieName": cookie
+        })
+    }
     return new Promise( function (success, failure) {
         request(options, function (err,  response, body) {
             if(!err && response.statusCode === 200){
@@ -227,7 +254,57 @@ async function postCartSubmit(){}
 
 
 //TODO: them cart
-async function postCartAddShoes(){}
+async function postCartAddShoes(id, value, cookie){
+    let options = {
+        'method': 'POST',
+        'url': `${url}:${port}${POST_cartAddShoes}`,
+        'headers': {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "ShoesID": id,
+            "Quaintly": value,
+            "CookieName": cookie
+        })
+    };
+    return new Promise( function (success, failure) {
+        request(options, function (err,  response, body) {
+            if(!err && response.statusCode === 200){
+                console.log('GET: success get with payment method')
+                success(body);
+            }else {
+                console.error(err)
+                failure(err)
+            }
+        })
+    })
+}
+
+async function getOder(){
+
+}
+async function postOder(oder){
+    var options = {
+        'method': 'POST',
+        'url': 'http://0.0.0.0:3000/post/oder',
+        'headers': {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(oder)
+
+    };
+    return new Promise( function (success, failure) {
+        request(options, function (err,  response, body) {
+            if(!err && response.statusCode === 200){
+                console.log('GET: success get with payment method')
+                success(body);
+            }else {
+                console.error(err)
+                failure(err)
+            }
+        })
+    })
+}
 
 
 module.exports = {
@@ -240,5 +317,7 @@ module.exports = {
     postCartSubmit: postCartSubmit,
     postCartAddShoes: postCartAddShoes,
     User: User,
-    getShoesWithId: getShoesWithId
+    getShoesWithId: getShoesWithId,
+    getUserWithCookie: getUserWithCookie,
+    postOder: postOder
 }

@@ -44,7 +44,6 @@ CREATE TABLE ODER (
 CREATE TABLE CART(
     CART_ID   INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     CookieName         VARCHAR(100)               NULL,
-    UserId             INTEGER                    NULL,
     ShoesId            INTEGER                    NULL,
     Quaintly           INTEGER                    NULL
 );
