@@ -43,8 +43,11 @@ routers.post('/confirmUser',  urlencodedParser, (req, res) => {
 })
 
 
-routers.get('/shoes_listing', (req, res) => {
-    res.render('ShoesListing')
+routers.get('/shoes_listing', async (req, res) => {
+    let data = await requestAPI.getAllShoes()
+    res.render('ShoesListing', {
+        data : data
+    })
 })
 
 
@@ -56,6 +59,16 @@ routers.get('/cart', (req, res) => {
 routers.get('/checkout', (req, res) => {
     res.render('Checkout')
 })
+
+routers.get('/detail/:id', async (req, res) => {
+    let id = req.params.id
+
+    let data =  await requestAPI.getShoesWithId(id)
+    res.render('detail', {
+        data: data
+    })
+})
+
 
 // Tao cookie
 function createCookie(req, res){
@@ -70,6 +83,8 @@ function createCookie(req, res){
         console.log('cookie exists', cookie)
     }
 }
+
+
 
 
 module.exports = routers

@@ -195,8 +195,25 @@ async function getCart(cookie){
             }
         })
     })
+}
 
-    }
+async function getShoesWithId(id){
+    let options = {
+        'method': 'GET',
+        'url': `${url}:${port}/shoes/${id}`,
+    };
+    return new Promise( function (success, failure) {
+        request(options, function (err,  response, body) {
+            if(!err && response.statusCode === 200){
+                console.log('GET: success get with payment method')
+                success(body);
+            }else {
+                console.error(err)
+                failure(err)
+            }
+        })
+    })
+}
 
 //TODO : update data cart
 async function postCartSubmit(){}
@@ -215,5 +232,6 @@ module.exports = {
     postUser: postUser,
     postCartSubmit: postCartSubmit,
     postCartAddShoes: postCartAddShoes,
-    User: User
+    User: User,
+    getShoesWithId: getShoesWithId
 }

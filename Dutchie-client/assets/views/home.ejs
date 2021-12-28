@@ -50,7 +50,7 @@
                     <div class="row row-cols-1 row-cols-md-4 g-4">
 
                         <% for (let i = 0;i < 4;i++){ %>
-                            <div class="col">
+                            <div class="col" >
                                 <div class="card h-100">
                                     <% pathImage = `http://0.0.0.0:3131/${listTrending[i].PathImageReview}/1.jpg` %>
                                     <img src="<%= pathImage%>" class="card-img-top" alt="<%= pathImage%>">
@@ -61,6 +61,7 @@
                                     <div class="card-footer">
                                         <small class="text-muted"><%= listTrending[i].Price %>  <%= listTrending[i].Currency %></small>
                                     </div>
+                                    <a href="/detail/<%=listTrending[i].SHOES_ID%> " class="btn btn-primary">Go somewhere</a>
                                 </div>
                             </div>
                         <% }%>
@@ -83,6 +84,7 @@
                                 <div class="card-footer">
                                     <small class="text-muted"><%= listMale[i].Price %>  <%= listMale[i].Currency %></small>
                                 </div>
+                                <a href="/detail/<%=listMale[i].SHOES_ID%> " class="btn btn-primary">Go somewhere</a>
                             </div>
                         </div>
 
@@ -106,20 +108,21 @@
                                 <div class="card-footer">
                                     <small class="text-muted"><%= listFemale[i].Price %>  <%= listFemale[i].Currency %></small>
                                 </div>
+                                <a href="/detail/<%=listFemale[i].SHOES_ID%> " class="btn btn-primary">Go somewhere</a>
                             </div>
                         </div>
                         <%}%>
                     </div>
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+<!--            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="prev">-->
+<!--                <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--                <span class="visually-hidden">Previous</span>-->
+<!--            </button>-->
+<!--            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="next">-->
+<!--                <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--                <span class="visually-hidden">Next</span>-->
+<!--            </button>-->
         </div>
 
     </div>
