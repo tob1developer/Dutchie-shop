@@ -1,8 +1,50 @@
 <!DOCTYPE html>
 <html>
 <%- include('header'); -%>
+<link href="/css/detail.css" type="text/css"  rel="stylesheet">
 <body>
-   <div> <%= JSON.parse(data).rows[0].Name%></div>
+   <div> <%object =  JSON.parse(data).rows[0]%></div>
+   <% pathImage = `http://0.0.0.0:3131/${object.PathImageReview}/1.jpg` %>
+   <section>
+      <div class="container">
+         <div class="row">
+
+            <div class="col">
+               <img src="<%= pathImage%>" alt="" />
+            </div>
+            <div class="col">
+               <div class="col-sm-7">
+                  <div class="product-information">
+                     <img src="images/product-details/new.jpg" class="newarrival" alt="" />
+                     <h2>Klein Sleeveless Colorblock Scuba</h2>
+                     <p>ID: 1089772</p>
+                     <img src="images/product-details/rating.png" alt="" />
+                     <span>
+									<span><%= object.Price  %> <%= object.Currency%></span>
+									<label>Số Lượng</label>
+									<input type="txet" value="1" />
+									<button type="button" class="btn btn-fefault cart">
+										<i class="fa fa-shopping-cart"></i>
+										Thêm vào giỏ hàng
+									</button>
+								</span>
+                     <p><b>Tình trạng:</b> Còn hàng ( <%= object.CurrentQuantity%> )</p>
+                     <p><b>Trạng thái:</b> New</p>
+                     <p><b>Cửa hàng:</b> Duchier</p>
+                  </div>
+               </div>
+            </div>
+            <div class="col-sm-9 padding-right">
+               <div class="product-details"><!--product-details-->
+                  <div class="col-sm-5">
+                     <div class="view-product">
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
 </body>
 <%- include('footer'); -%>
 </html>
