@@ -9,7 +9,7 @@
   "author": "Tuan Kiet Ngo",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.21.0",
     "jquery": "^3.6.0",
     "cookie-parser": "^1.4.6"
   },
