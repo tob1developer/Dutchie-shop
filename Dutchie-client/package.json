@@ -9,9 +9,9 @@
   "author": "Tuan Kiet Ngo",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.21.1",
     "jquery": "^3.6.0",
-    "cookie-parser": "^1.4.6"
+    "cookie-parser": "^1.4.7"
   },
   "devDependencies": {
     "ejs": "^3.1.6",
